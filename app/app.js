@@ -1,0 +1,6 @@
+(function() {
+  console.log('Hello world');
+
+}).call(this);
+
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInRlc3QuY29mZmVlIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQUEsT0FBTyxDQUFDLEdBQVIsQ0FBWSxhQUFaO0FBQUEiLCJmaWxlIjoidGVzdC5qcyIsInNvdXJjZVJvb3QiOiIvc291cmNlLyIsInNvdXJjZXNDb250ZW50IjpbImNvbnNvbGUubG9nICdIZWxsbyB3b3JsZCciXX0=
