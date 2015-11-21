@@ -1,6 +1,7 @@
 gulp = require 'gulp'
 $ = require('gulp-load-plugins')()
 coffeeLintStylish = require 'coffeelint-stylish'
+jasmineReporters = require 'jasmine-reporters'
 
 
 gulp.task 'coffee', ->
@@ -17,6 +18,21 @@ gulp.task 'coffee', ->
 
 
 
+gulp.task 'coffee-test', ->
+  gulp.src './spec/**/*.coffee'
+    .pipe($.plumber())
+    .pipe($.coffeelint())
+    .pipe($.coffeelint.reporter(coffeeLintStylish))
+    .pipe($.coffee())
+    .pipe($.concat('appSpec.js'))
+    .pipe(gulp.dest('./spec'))
+
+
+gulp.task 'jasmine-test', ->
+  gulp.src ['./src/**/*.coffee', './spec/**/*.coffee']
+    .pipe($.jasmineBrowser.specRunner())
+    .pipe($.jasmineBrowser.server())
+
 
 gulp.task 'watch', ->
   $.livereload.listen(
@@ -27,6 +43,11 @@ gulp.task 'watch', ->
     gulp.start('coffee')
     cb()
   )
+  $.watch('./spec/**/*.coffee', $.batch (cb) ->
+    gulp.start('coffee-test')
+    gulp.start('jasmine-test')
+    cb()
+  )
 
 
 
@@ -34,12 +55,13 @@ gulp.task 'server',  ->
   gulp.src 'app'
     .pipe($.webserver(
       port: 9011
-      # livereload: on
     ))
 
 
 gulp.task 'default', [
   'coffee'
+  # 'coffee-test'
+  # 'jasmine-test'
   'watch'
   'server'
 ]
